@@ -1,0 +1,20 @@
+{
+  "name": "chatroom",
+  "version": "0.0.1",
+  "author": "刘朝润",
+  "description": "web网络聊天室",
+  "keywords": ["node.js","javascript","socket.io"],
+  "repository": {
+    "type": "git"，
+    "url": ""
+  },
+  "dependencies": {
+    "pg": "^7.1.2",
+    "sequelize": "^4.5.0",
+    "socket.io": "^2.0.3",
+    "koa-router": "^7.2.1",
+    "koa-static": "^4.0.1",
+    "koa": "^2.3.0",
+    "koa-body": "^2.3.0"
+  }
+}
