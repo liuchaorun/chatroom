@@ -3,18 +3,30 @@
   "version": "0.0.1",
   "author": "刘朝润",
   "description": "web网络聊天室",
-  "keywords": ["node.js","javascript","socket.io"],
+  "keywords": [
+    "node.js",
+    "javascript",
+    "socket.io"
+  ],
   "repository": {
-    "type": "git"，
-    "url": ""
+    "type": "git",
+    "url": "https://github.com/liuchaorun/chatroom.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "app": "node app.js"
+  },
+  "bugs": {
+    "email": "1558531230@qq.com"
   },
   "dependencies": {
-    "pg": "^7.1.2",
-    "sequelize": "^4.5.0",
-    "socket.io": "^2.0.3",
+    "koa": "^2.3.0",
+    "koa-body": "^2.3.0",
     "koa-router": "^7.2.1",
     "koa-static": "^4.0.1",
-    "koa": "^2.3.0",
-    "koa-body": "^2.3.0"
+    "npm": "^5.3.0",
+    "pg": "^7.1.2",
+    "sequelize": "^4.5.0",
+    "socket.io": "^2.0.3"
   }
 }
