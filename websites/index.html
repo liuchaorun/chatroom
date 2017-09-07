@@ -1,24 +1,70 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
+<!-- Head -->
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bootstrap 101 Template</title>
-
-    <!-- Bootstrap -->
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<title>聊天室登录</title>
+	<!-- Meta-Tags -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!-- //Meta-Tags -->
+	<!-- Style --> <link rel="stylesheet" href="css/index.css" type="text/css" media="all">
+    <script type="text/javascript" src="./lib/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="./scripts/index.js"></script>
 </head>
+<!-- //Head -->
+<!-- Body -->
 <body>
-<h1>你好，世界！</h1>
+	<h1>聊天室</h1>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="lib/jQuery/jquery-3.2.1.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+	<div class="contain w3layouts agileits">
+
+		<div class="login w3layouts agileits">
+			<h2>登 录</h2>
+			<form action="#" method="post">
+				<input type="text" name="username" id="login_username" placeholder="用户名" required="">
+				<input type="password" name="password" id="login_password" placeholder="密码" required="">
+			</form>
+			<ul class="tick w3layouts agileits">
+				<li>
+					<input type="checkbox" id="login_brand" value="">
+					<label for="login_brand"><span></span>记住我</label>
+				</li>
+			</ul>
+			<div class="send-button w3layouts agileits">
+				<form>
+					<input type="button" value="登 录" id="loginBtn">
+				</form>
+			</div>
+			<a href="#">忘记密码?</a>
+			<div class="clear"></div>
+		</div>
+
+
+		<div class="register w3layouts agileits">
+			<h2>注 册</h2>
+			<form action="#" method="post">
+				<input type="text" name="username" id="username" placeholder="用户名" required="">
+				<input type="text" name="email" id="email" placeholder="邮箱" required="">
+				<input type="password" name="password" id="password" placeholder="密码" required="">
+				<input type="text" name="rePassword" id="rePassword" placeholder="确认密码" required="">
+			</form>
+			<div class="send-button w3layouts agileits">
+				<form>
+					<input type="button" value="免费注册" id="signUpBtn">
+				</form>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="clear"></div>
+
+	</div>
+	<div class="footer w3layouts agileits">
+		<p>Copyright &copy; liuchaorun</p>
+	</div>
+
 </body>
+<!-- //Body -->
+
 </html>
