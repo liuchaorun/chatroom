@@ -48,7 +48,7 @@ $(()=> {
             let data={
                 username:$(username).val(),
                 email:$(email).val(),
-                password:$(email).val()
+                password:$(password).val()
             };
             ajax(
                 'sign_up',
@@ -84,10 +84,10 @@ $(()=> {
               remember_me:$(remember_me)[0].checked
             };
             ajax(
-                login,
+                'login',
                 data,
                 (response)=>{
-                    if(response.status.code===0){
+                    if(response.status.code===1){
                         location.href='./html/chatroom.html';
                     }
                     else{

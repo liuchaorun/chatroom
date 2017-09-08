@@ -1,4 +1,6 @@
-const [message_box,managerBox,name,message,warn_msg,user_face,user_list]=['#message_box','.managerBox','.name','#message','#alert','#user_face','.user_list'];
+const socket = io('http://127.0.0.1:3000');
+const [message_box,managerBox,name,message, warn_msg,user_face,user_list,file_btn,choose_file,chat_font,fontBox,write_area,def,kai,song,font_size,sendFile,setFace]=
+    ['#message_box','.managerBox','.name','#message','#alert','#user_face','.user_list','#file_btn','#choose_file','#chat_font','.fontBox','.write_area','#default','#kai','#song','#font_size','#sendFile','#setFace'];
 function warning_msg(msg) {
     $(warn_msg)[0].innerText=msg;
     $(warn_msg).css('top','50%');
@@ -33,32 +35,113 @@ function ajax(action,data,success_function,fail_function) {
         error: fail_function,
     });
 }
-$(document).ready(()=>{
-    $(message_box).scrollTop($(message_box)[0].scrollHeight + 20);
-    $(name).hover(
-        function(){
+function upload_file(action, $upload_input, success_function, error_function, $progress_bar = undefined, async = true) {
+    let formData = new FormData;
+    for (let i = 0; i < $upload_input[0].files.length; i++)
+        formData.append(`file`, $upload_input[0].files[i]);
+    $.ajax(
+        {
+            xhrFields: {
+                withCredentials: true
+            },
+            url: 'http://127.0.0.1:3000'+action,
+            method: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            async: async,
+            success: success_function,
+            error: error_function,
+            xhr: function ()
+            {
+                //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数
+                let myXhr = $.ajaxSettings.xhr();
+                if ($progress_bar)
+                {
+                    if (myXhr.upload)
+                    { //检查upload属性是否存在
+                        myXhr.upload.addEventListener('progress', function (event)//绑定progress事件的回调函数
+                        {
+                            if (event.lengthComputable)
+                            {
+                                let percent = event.loaded / event.total * 100;
+                                $progress_bar.css('width', percent + '%');
+                            }
+                        }, false);
+                    }
+                }
+                return myXhr; //xhr对象返回给jQuery使用
+            }
+        });
+}
+function prevent(e) {
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+}
+function digitInput(e) {
+    let c = e.charCode || e.keyCode; //FF、Chrome IE下获取键盘码
+    if ((c != 8 && c != 46 && // 8 - Backspace, 46 - Delete
+            (c < 37 || c > 40) && // 37 (38) (39) (40) - Left (Up) (Right) (Down) Arrow
+            (c < 48 || c > 57) && // 48~57 - 主键盘上的0~9
+            (c < 96 || c > 105)) // 96~105 - 小键盘的0~9
+        || e.shiftKey) { // Shift键，对应的code为16
+        prevent(e); // 阻止事件传播到keypress
+    }
+}
+$(function () {
+    $(name).hover(()=>{
             $(managerBox).stop(true, true).slideDown(100);
-        },
-        function(){
+        }, ()=>{
             $(managerBox).stop(true, true).slideUp(100);
-        }
-    );
-    ajax(
-        'get_info',
-        {},
-        (response)=>{
-            if(response.status.code===0){
-                $(user_face).css('src',response.data.user_face_url);
+        });
+    $(font_size).keydown((e)=> {
+        digitInput(e);
+    });
+    $(font_size).blur(()=>{
+        $(write_area).css('font-size',parseInt($(font_size).val()));
+    });
+    $(def).click(()=>{
+        $(write_area).css('font-family','');
+    });
+    $(song).click(()=>{
+        $(write_area).css('font-family','AR PL UMing CN','宋体');
+    });
+    $(kai).click(()=>{
+        $(write_area).css('font-family','AR PL UKai CN','楷体');
+    });
+    $(message_box).scrollTop($(message_box)[0].scrollHeight + 20);
+    $(chat_font).hover(()=>{
+            $(fontBox).css('top',$(chat_font).offset().top-90);
+            $(fontBox).stop(true, true).slideDown(-100);
+        }, ()=>{
+            $(fontBox).css('top',$(chat_font).offset().top-90);
+            $(fontBox).stop(true, true).slideUp(-100);
+        });
+    $(file_btn).click(()=>{
+        $(sendFile).modal('show');
+    });
+    $(user_face).click(()=>{
+        $(setFace).modal('show');
+    });
+    $(message).click(()=>{
 
+    });
+    ajax('get_info', {}, (response)=>{
+            if(response.status.code===1){
+                $(user_face).css('src',response.data.face_url);
+                $(name).html(response.data.username+'<i class="fontIco down"></i>\n' +
+                    '                <ul class="managerBox">\n' +
+                    '                    <li><a href="#"><i class="fontIco lock"></i>修改密码</a></li>\n' +
+                    '                    <li><a href="#"><i class="fontIco logout"></i>退出登录</a></li>\n' +
+                    '                </ul>');
+                socket.emit('join',response.data.username);
             }
             else{
                 warning_msg(response.status.msg)
             }
-        },
-        (response)=>{
+        }, (response)=>{
             warning_msg(response.status.msg);
-        }
-    )
+        });
+
 });
 // $(document).ready(function(e) {
 //     $('#message_box').scrollTop($("#message_box")[0].scrollHeight + 20);

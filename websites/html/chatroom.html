@@ -6,7 +6,6 @@
     <link rel="shortcut icon" href="../images/favicon.png">
     <link rel="icon" href="../images/favicon.png" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="../css/chatroom.css">
-
 </head>
 
 <body>
@@ -29,13 +28,13 @@
     <div class="chat_message fn-clear">
         <div class="chat_left">
             <div class="message_box" id="message_box">
-                <div class="msg_item fn-clear">
-                    <div class="face"><img src="../images/default.png" width="40px" height="40px" alt=""/></div>
-                    <div class="item_right">
-                        <div class="msg">近日，TIOBE发布了2014年9月的编程语言排行榜，Java、C++跌至历史最低点，前三名则没有变化，依旧是C、Java、Objective-C。</div>
-                        <div class="name_time">猫猫 · 3分钟前</div>
-                    </div>
-                </div>
+                <!--<div class="msg_item fn-clear">-->
+                    <!--<div class="face"><img src="../images/default.png" width="40px" height="40px" alt=""/></div>-->
+                    <!--<div class="item_right">-->
+                        <!--<div class="msg">近日，TIOBE发布了2014年9月的编程语言排行榜，Java、C++跌至历史最低点，前三名则没有变化，依旧是C、Java、Objective-C。</div>-->
+                        <!--<div class="name_time">猫猫 · 3分钟前</div>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
             <div class="write_box">
                 <textarea id="message" name="message" class="write_area" placeholder="说点啥吧..."></textarea>
@@ -43,22 +42,80 @@
                 <input type="hidden" name="to_uid" id="to_uid" value="0">
                 <div class="faceBox fn-clear">
                     <div class="expression"></div>
-                    <div class="chat_type" id="chat_type">群聊</div>
-                    <button name="" class="sub_but">提 交</button>
+                    <!--<div class="chat_type" id="chat_type">群聊</div>-->
+                    <div class="chat_type" id="chat_file">
+                        <button type="button" id="file_btn">文件</button>
+                    </div>
+                    <div class="chat_type" id="chat_font">
+                        字体<i class="fontIco down"></i>
+                        <ul class="fontBox">
+                            <li><a id="default" href="#">默认</a></li>
+                            <li><a style="font-family: 'AR PL UKai CN','楷体'" id="kai" href="#">楷体</a></li>
+                            <li><a style="font-family: 'AR PL UMing CN','宋体';" id="song" href="#">宋体</a></li>
+                        </ul>
+                    </div>
+                    <div class="chat_type" id="chat_font_size">字体大小:<input style="width: 10%" id="font_size"></div>
+
+                    <button name="" class="sub_but">发 送</button>
                 </div>
             </div>
         </div>
         <div class="chat_right">
             <ul class="user_list" title="双击用户私聊,该功能尚未实现">
                 <li class="fn-clear selected"><em>所有用户</em></li>
-                <li class="fn-clear" data-id="1"><span><img src="../images/default.png" width="30" height="30" alt=""/></span><em>河图</em><small class="online" title="在线"></small></li>
-                <li class="fn-clear" data-id="2"><span><img src="../images/default.png" width="30" height="30" alt=""/></span><em>猫猫</em><small class="online" title="在线"></small></li>
-                <li class="fn-clear" data-id="3"><span><img src="../images/default.png" width="30" height="30" alt=""/></span><em>白猫</em><small class="offline" title="离线"></small></li>
+                <!--<li class="fn-clear" data-id="1"><span><img src="../images/default.png" width="30" height="30" alt=""/></span><em>河图</em><small class="online" title="在线"></small></li>-->
             </ul>
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="sendFile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">发送文件</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                        0%
+                    </div>
+                </div>
+                <input type="file">
+                <button type="button" class="btn btn-primary" style="position: absolute;right: 20px;">上传</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="setFace" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">设置头像</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                        0%
+                    </div>
+                </div>
+                <input type="file">
+                <button type="button" class="btn btn-primary" style="position: absolute;right: 20px;">上传</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="../lib/jQuery/jquery-3.2.1.min.js"></script>
+<script src="../lib/socket.io.js"></script>
 <script src="../scripts/chatroom.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
