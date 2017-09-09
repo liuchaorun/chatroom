@@ -10,6 +10,7 @@ const gm = require('gm');
 const bluebird = require('bluebird');
 const upDir = '/home/ubuntu/file/';
 bluebird.promisifyAll(fs);
+bluebird.promisifyAll(gm);
 let user = model.user;
 let sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
