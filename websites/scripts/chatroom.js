@@ -115,6 +115,7 @@ function upload(action, $upload_input, success_function, error_function, $progre
                             {
                                 let percent = event.loaded / event.total * 100;
                                 $progress_bar.css('width', percent + '%');
+                                $progress_bar.html(percent + '%');
                             }
                         }, false);
                     }
