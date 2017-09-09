@@ -135,12 +135,7 @@ router.post('/action=upload_file', koaBody({
     }
 }), async (ctx, next) => {
     let files = ctx.request.body.files;
-    let fileFormat = (files.file.name).split(".");
-    let file_name = files.file.name + '.' + fileFormat[fileFormat.length - 1];
-    fs.rename(files.file.path, upDir+'files/' + file_name, (err) => {
-        console.log(err);
-    });
-    ctx.api(200, {filename:file_name}, {code: 10000, msg: '上传成功'});
+    ctx.api(200, {filename:files.file.name}, {code: 10000, msg: '上传成功'});
     await next();
 });
 
