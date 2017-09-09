@@ -5,10 +5,9 @@ const app = new koa();
 const session = require("koa-session2");
 const Store = require("./redis/store.js");
 const res_api = require('koa.res.api');
-const user_socket={};
-// support socket.io
 const server = require('http').Server(app.callback());
 const io = require('socket.io')(server);
+const user=[];
 app.use(bodyParser());
 app.use(res_api());
 app.use(session({
@@ -19,16 +18,26 @@ app
     .use(router.routes())
     .use(router.allowedMethods());
 io.on('connection',(socket)=>{
-    socket.on('join',(username)=>{
-        user_socket[username] = socket;
-        console.log(username + 'join');
-        socket.broadcast.emit('add_someone',{username:username});
+    let name;
+    socket.on('join',(data)=>{
+        name=data.username;
+        console.log(data.username + 'join');
+        socket.emit('add_online_people',user);
+        io.sockets.emit('add_someone',data);
+        user.push(data);
+    });
+    socket.on('change_face',(data)=>{
+        io.sockets.emit('someone_change_face',data);
     });
     socket.on('msg',(data)=>{
-        socket.broadcast.emit('get_msg',data);
+        let now = new Date();
+        data.time = now.getMonth()+'月'+now.getDay()+'日'+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds();
+        io.sockets.emit('get_msg',data);
+        console.log(data);
     });
     socket.on('disconnect',()=>{
-        console.log('someone disconnect');
+        console.log(name+' disconnect');
+        socket.broadcast.emit('del_someone',name);
         delete client;
     });
 });

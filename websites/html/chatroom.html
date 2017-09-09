@@ -54,9 +54,8 @@
                             <li><a style="font-family: 'AR PL UMing CN','宋体';" id="song" href="#">宋体</a></li>
                         </ul>
                     </div>
-                    <div class="chat_type" id="chat_font_size">字体大小:<input style="width: 10%" id="font_size"></div>
-
-                    <button name="" class="sub_but">发 送</button>
+                    <div class="chat_type" id="chat_font_size">字体大小(最大值为32px):<input style="width: 10%" id="font_size"></div>
+                    <button name="" class="sub_btn">发 送</button>
                 </div>
             </div>
         </div>
@@ -78,12 +77,12 @@
             </div>
             <div class="modal-body">
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="upload_file_process" style="width: 0%;">
                         0%
                     </div>
                 </div>
-                <input type="file">
-                <button type="button" class="btn btn-primary" style="position: absolute;right: 20px;">上传</button>
+                <input type="file" id="upload_input_file">
+                <button type="button" id="upload_file" class="btn btn-primary" style="position: absolute;right: 20px;">上传</button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>

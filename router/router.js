@@ -128,7 +128,7 @@ router.post('/action=upload_face', koaBody({
     await next();
 });
 
-router.post('.action=upload_file', koaBody({
+router.post('/action=upload_file', koaBody({
     multipart: true,
     formidable: {
         uploadDir: upDir+'files/'
@@ -140,7 +140,7 @@ router.post('.action=upload_file', koaBody({
     fs.rename(files.file.path, upDir+'files/' + file_name, (err) => {
         console.log(err);
     });
-    ctx.api(200, {}, {code: 10000, msg: '上传成功'});
+    ctx.api(200, {filename:file_name}, {code: 10000, msg: '上传成功'});
     await next();
 });
 
