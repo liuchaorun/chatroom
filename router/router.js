@@ -122,9 +122,9 @@ router.post('/action=upload_face', koaBody({
     let file_name = ctx.session.custom_username + '.' + fileFormat[fileFormat.length - 1];
     let user_person = await user.findOne({where: {email: ctx.session.custom_username}});
     gm(files.file.path).resize(200,200).write(upDir+'faces/'+file_name,()=>{});
-    user_person.update({face_url:'http://118.89.197.156:8000/faces/'+file_name});
+    await user_person.update({face_url:'http://118.89.197.156:8000/faces/'+file_name});
     fs.unlinkSync(files.file.path);
-    ctx.api(200, {}, {code: 10000, msg: '上传成功'});
+    ctx.api(200, {face_url:user_person.face_url}, {code: 10000, msg: '上传成功'});
     await next();
 });
 

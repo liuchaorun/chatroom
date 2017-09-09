@@ -1,6 +1,6 @@
 const socket = io('http://118.89.197.156:3001');
-const [message_box,managerBox,name,message, warn_msg,user_face,user_list,file_btn,chat_font,fontBox,write_area,def,kai,song,font_size,sendFile,setFace,sub_btn,upload_file,upload_face]=
-    ['#message_box','.managerBox','.name','#message','#alert','#user_face','.user_list','#file_btn','#chat_font','.fontBox','.write_area','#default','#kai','#song','#font_size','#sendFile','#setFace','.sub_btn','#upload_file','#upload_face'];
+const [message_box,managerBox,name,message, warn_msg,user_face,user_list,file_btn,chat_font,fontBox,write_area,def,kai,song,font_size,sendFile,setFace,sub_btn,upload_file,upload_input_file,upload_file_process,upload_face,upload_input_face,upload_face_process]=
+    ['#message_box','.managerBox','.name','#message','#alert','#user_face','.user_list','#file_btn','#chat_font','.fontBox','.write_area','#default','#kai','#song','#font_size','#sendFile','#setFace','.sub_btn','#upload_file','#upload_input_file','#upload_file_process','#upload_face','#upload_input_face','#upload_face_process'];
 function warning_msg(msg) {
     $(warn_msg)[0].innerText=msg;
     $(warn_msg).css('top','50%');
@@ -105,7 +105,7 @@ function upload(action, $upload_input, success_function, error_function, $progre
                             {
                                 let percent = event.loaded / event.total * 100;
                                 $progress_bar.css('width', percent + '%');
-                                $progress_bar.html(percent + '%');
+                                $progress_bar.html(parseInt(percent) + '%');
                             }
                         }, false);
                     }
@@ -183,7 +183,7 @@ $(function () {
         }
     });
     $(upload_file).click(()=>{
-        upload('upload_file',$('#upload_input_file'),(response)=>{
+        upload('upload_file',$(upload_input_file),(response)=>{
             $(sendFile).modal('hide');
             let data={
                 type:'file',
@@ -193,8 +193,23 @@ $(function () {
             };
             socket.emit('msg',data);
         },()=>{
-
-        },$('#upload_file_process'));
+            warning_msg('请重试！');
+        },$(upload_file_process));
+    });
+    $(upload_face).click(()=>{
+        upload('upload_face',$(upload_input_face),(response)=>{
+            $(setFace).modal('hide');
+            let data={
+                username:localStorage.getItem('username'),
+                face_url:response.data.face_url
+            };
+            localStorage.face_url = response.data.face_url;
+            socket.emit('change_face',data);
+            $(user_face).css('src',data.face_url);
+            $('#'+data.username)[0].children[0].children[0].css('src',data.face_url);
+        },()=>{
+            warning_msg('请重试');
+        },$(upload_face_process));
     });
     ajax('get_info', {}, (response)=>{
             if(response.status.code===1){
@@ -232,4 +247,7 @@ socket.on('add_online_people',(user)=>{
     for(let i of user){
         add_someone(i.username,i.face_url);
     }
+});
+socket.on('someone_change_face',(data)=>{
+    $('#'+data.username)[0].children[0].children[0].css('src',data.face_url);
 });

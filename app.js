@@ -27,7 +27,7 @@ io.on('connection',(socket)=>{
         user.push(data);
     });
     socket.on('change_face',(data)=>{
-        io.sockets.emit('someone_change_face',data);
+        sockets.broadcast.emit('someone_change_face',data);
     });
     socket.on('msg',(data)=>{
         let now = new Date();
