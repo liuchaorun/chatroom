@@ -51,18 +51,8 @@ function add_msg(data) {
             + '</div></div></div>';
     }
     else{
-        let src = 'src="http://118.89.197.156:8000/'+data.msg+'"';
-        html_data ='<div class="msg_item fn-clear">'
-            + '<div class="face"><img src=' +data.face_url
-            + ' width="40" height="40"  alt=""/></div>'
-            + '<div class="item_right">'
-            + '<div class="msg own"'
-            + '><a '+src+
-            + '>' +data.msg+
-            + '</a></div>'
-            + '<div class="name_time">' + data.username
-            + ' · '+data.time
-            + '</div></div></div>';
+        let src = 'src="http://118.89.197.156:8000/files/'+data.msg+'"';
+        html_data =`<div class="msg_item fn-clear"><div class="face"><img src=${data.face_url} width="40" height="40"  alt=""/></div><div class="item_right"><div class="msg own"><a ${src}>${data.msg}</a></div><div class="name_time">${data.username} · ${data.time}</div></div></div>`;
     }
     $(message_box).append(html_data);
     $(message_box).scrollTop($(message_box)[0].scrollHeight + 20);
