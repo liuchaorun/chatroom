@@ -135,6 +135,9 @@ router.post('/action=upload_file', koaBody({
     }
 }), async (ctx, next) => {
     let files = ctx.request.body.files;
+    fs.rename(files.file.path, upDir+'files/' + files.file.name, (err) => {
+        console.log(err);
+    });
     ctx.api(200, {filename:files.file.name}, {code: 10000, msg: '上传成功'});
     await next();
 });
