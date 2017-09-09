@@ -1,4 +1,4 @@
-const socket = io('http://127.0.0.1:3000');
+const socket = io('http://118.89.197.156');
 const [message_box,managerBox,name,message, warn_msg,user_face,user_list,file_btn,choose_file,chat_font,fontBox,write_area,def,kai,song,font_size,sendFile,setFace]=
     ['#message_box','.managerBox','.name','#message','#alert','#user_face','.user_list','#file_btn','#choose_file','#chat_font','.fontBox','.write_area','#default','#kai','#song','#font_size','#sendFile','#setFace'];
 function warning_msg(msg) {
@@ -28,7 +28,8 @@ function ajax(action,data,success_function,fail_function) {
         contentType: 'application/json',
         timeout: 2000,
         dataType: 'json',
-        url: 'http://127.0.0.1:3000/action='+action,
+        //url: 'http://127.0.0.1:6666/action='+action,
+        url: 'http://118.89.197.156:6666/action='+action,
         method: 'post',
         data: JSON.stringify(data),
         success: success_function,
@@ -44,7 +45,8 @@ function upload_file(action, $upload_input, success_function, error_function, $p
             xhrFields: {
                 withCredentials: true
             },
-            url: 'http://127.0.0.1:3000'+action,
+            //url: 'http://127.0.0.1:6666/action='+action,
+            url: 'http://118.89.197.156:6666/action='+action,
             method: 'post',
             data: formData,
             processData: false,
