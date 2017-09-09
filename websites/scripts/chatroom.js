@@ -205,8 +205,8 @@ $(function () {
             };
             localStorage.face_url = response.data.face_url;
             socket.emit('change_face',data);
-            $(user_face).css('src',data.face_url);
-            $('#'+data.username)[0].children[0].children[0].css('src',data.face_url);
+            $(user_face)[0].src=data.face_url;
+            ($('#'+data.username)[0].children[0].children[0]).src=data.face_url;
         },()=>{
             warning_msg('请重试');
         },$(upload_face_process));
@@ -250,5 +250,5 @@ socket.on('add_online_people',(data)=>{
     }
 });
 socket.on('someone_change_face',(data)=>{
-    $('#'+data.username)[0].children[0].children[0].css('src',data.face_url);
+    ($('#'+data.username)[0].children[0].children[0]).src=data.face_url;
 });
