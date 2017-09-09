@@ -213,7 +213,7 @@ $(function () {
     });
     ajax('get_info', {}, (response)=>{
             if(response.status.code===1){
-                $(user_face).css('src',response.data.face_url);
+                $(user_face)[0].src=response.data.face_url;
                 $(name).html(response.data.username+'<i class="fontIco down"></i>\n' +
                     '                <ul class="managerBox">\n' +
                     '                    <li><a href="#"><i class="fontIco lock"></i>修改密码</a></li>\n' +
