@@ -1,4 +1,4 @@
-const socket = io('http://118.89.197.156');
+const socket = io('http://118.89.197.156:3001');
 const [message_box,managerBox,name,message, warn_msg,user_face,user_list,file_btn,choose_file,chat_font,fontBox,write_area,def,kai,song,font_size,sendFile,setFace]=
     ['#message_box','.managerBox','.name','#message','#alert','#user_face','.user_list','#file_btn','#choose_file','#chat_font','.fontBox','.write_area','#default','#kai','#song','#font_size','#sendFile','#setFace'];
 function warning_msg(msg) {
