@@ -28,8 +28,8 @@ function ajax(action,data,success_function,fail_function) {
         contentType: 'application/json',
         timeout: 2000,
         dataType: 'json',
-        //url: 'http://127.0.0.1:6666/action='+action,
-        url: 'http://118.89.197.156:6666/action='+action,
+        //url: 'http://127.0.0.1:3001/action='+action,
+        url: 'http://118.89.197.156:3001/action='+action,
         method: 'post',
         data: JSON.stringify(data),
         success: success_function,
@@ -45,8 +45,8 @@ function upload_file(action, $upload_input, success_function, error_function, $p
             xhrFields: {
                 withCredentials: true
             },
-            //url: 'http://127.0.0.1:6666/action='+action,
-            url: 'http://118.89.197.156:6666/action='+action,
+            //url: 'http://127.0.0.1:3001/action='+action,
+            url: 'http://118.89.197.156:3001/action='+action,
             method: 'post',
             data: formData,
             processData: false,
