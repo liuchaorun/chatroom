@@ -7,10 +7,7 @@ const config = require('../db/config');
 const Sequelize = require('sequelize');
 const fs = require('fs');
 const gm = require('gm');
-const bluebird = require('bluebird');
 const upDir = '/home/ubuntu/file/';
-bluebird.promisifyAll(fs);
-bluebird.promisifyAll(gm);
 let user = model.user;
 let sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
@@ -120,12 +117,21 @@ router.post('/action=upload_face', koaBody({
         uploadDir: upDir+'faces/'
     }
 }), async (ctx, next) => {
+    let promisify = (fn, receiver) => {
+        return (...args) => {
+            return new Promise((resolve, reject) => {
+                fn.apply(receiver, [...args, (err, res) => {
+                    return err ? reject(err) : resolve(res);
+                }]);
+            });
+        };
+    };
     let files = ctx.request.body.files;
     let fileFormat = (files.file.name).split(".");
     let file_name = ctx.session.custom_username+'-'+Date.now() + '.' + fileFormat[fileFormat.length - 1];
     let user_person = await user.findOne({where: {username: ctx.session.custom_username}});
-    let p = gm(files.file.path).resize(200,200);
-    await p.writeAsync(upDir+'faces/'+file_name);
+    let writAsync = promisify(gm(files.file.path).resize(200,200).write,gm(files.file.path).resize(200,200));
+    await writAsync(upDir+'faces/'+file_name);
     await user_person.update({face_url:'http://118.89.197.156:8000/faces/'+file_name});
     fs.unlinkSync(files.file.path);
     ctx.api(200, {face_url:user_person.face_url}, {code: 10000, msg: '上传成功'});
