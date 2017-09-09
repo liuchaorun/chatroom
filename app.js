@@ -39,6 +39,7 @@ io.on('connection',(socket)=>{
         console.log(name+' disconnect');
         socket.broadcast.emit('del_someone',name);
         delete user.name;
+        console.log(user);
         delete client;
     });
 });
