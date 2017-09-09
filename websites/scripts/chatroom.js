@@ -119,7 +119,7 @@ function prevent(e) {
 }
 function digitInput(e) {
     let c = e.charCode || e.keyCode; //FF、Chrome IE下获取键盘码
-    if ((c != 8 && c != 46 && // 8 - Backspace, 46 - Delete
+    if ((c !== 8 && c !== 46 && // 8 - Backspace, 46 - Delete
             (c < 37 || c > 40) && // 37 (38) (39) (40) - Left (Up) (Right) (Down) Arrow
             (c < 48 || c > 57) && // 48~57 - 主键盘上的0~9
             (c < 96 || c > 105)) // 96~105 - 小键盘的0~9
