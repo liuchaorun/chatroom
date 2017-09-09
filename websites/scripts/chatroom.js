@@ -243,7 +243,8 @@ socket.on('get_msg',(data)=>{
 socket.on('del_someone',(username)=>{
     $('#'+username).remove();
 });
-socket.on('add_online_people',(user)=>{
+socket.on('add_online_people',(data)=>{
+    let user = Object.values(data);
     for(let i of user){
         add_someone(i.username,i.face_url);
     }

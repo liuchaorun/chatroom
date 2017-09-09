@@ -7,7 +7,7 @@ const Store = require("./redis/store.js");
 const res_api = require('koa.res.api');
 const server = require('http').Server(app.callback());
 const io = require('socket.io')(server);
-const user=[];
+const user={};
 app.use(bodyParser());
 app.use(res_api());
 app.use(session({
@@ -24,7 +24,7 @@ io.on('connection',(socket)=>{
         console.log(data.username + 'join');
         socket.emit('add_online_people',user);
         io.sockets.emit('add_someone',data);
-        user.push(data);
+        user[data.username]=data;
     });
     socket.on('change_face',(data)=>{
         socket.broadcast.emit('someone_change_face',data);
@@ -38,12 +38,6 @@ io.on('connection',(socket)=>{
     socket.on('disconnect',()=>{
         console.log(name+' disconnect');
         socket.broadcast.emit('del_someone',name);
-        for(let i of user){
-            if(i.username===name){
-                i.remove();
-                break;
-            }
-        }
         delete client;
     });
 });

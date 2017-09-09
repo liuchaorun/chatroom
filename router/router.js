@@ -119,7 +119,7 @@ router.post('/action=upload_face', koaBody({
 }), async (ctx, next) => {
     let files = ctx.request.body.files;
     let fileFormat = (files.file.name).split(".");
-    let file_name = ctx.session.custom_username + '.' + fileFormat[fileFormat.length - 1];
+    let file_name = ctx.session.custom_username+'-'+Date.now() + '.' + fileFormat[fileFormat.length - 1];
     let user_person = await user.findOne({where: {username: ctx.session.custom_username}});
     gm(files.file.path).resize(200,200).write(upDir+'faces/'+file_name,()=>{});
     await user_person.update({face_url:'http://118.89.197.156:8000/faces/'+file_name});
