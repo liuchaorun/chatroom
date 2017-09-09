@@ -38,6 +38,12 @@ io.on('connection',(socket)=>{
     socket.on('disconnect',()=>{
         console.log(name+' disconnect');
         socket.broadcast.emit('del_someone',name);
+        for(let i of user){
+            if(i.username===name){
+                i.remove();
+                break;
+            }
+        }
         delete client;
     });
 });
