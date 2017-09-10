@@ -184,21 +184,6 @@ li.twt {
     display: inline-block;
 }
 
-.social-icons ul li.weixin span.icons {
-    background: url("../images/weixin.png") no-repeat;
-    background-size: 100%;
-}
-.social-icons ul li.qq span.icons {
-    background: url("../images/QQ.png") no-repeat;
-    background-size: 100%;
-}
-.social-icons ul li.weibo span.icons {
-    /*--w3layouts--*/
-    /*--agileits--*/
-    background: url("../images/weibo.png") no-repeat;
-    background-size: 100%;
-}
-
 .social-icons ul li a:hover span.icons {
     transform: rotatey(360deg);
     -webkit-transform: rotatey(360deg);

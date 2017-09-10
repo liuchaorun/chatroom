@@ -152,4 +152,48 @@ router.post('/action=upload_file', koaBody({
     await next();
 });
 
+router.post('/action=get_verify',async(ctx,next)=>{
+    let code,msg;
+    if(await user.count({where:{email:ctx.request.body.email}})===0){
+        msg='该用户不存在！';
+        code=0;
+    }
+    else{
+        let n = Math.floor(Math.random() * 9000 + 1000);
+        ctx.session.verify = n.toString();
+        let mailOptions = {
+            from: '"聊天室" <pobooks@126.com>',
+            to: ctx.request.body.email,
+            subject: '聊天室验证码',
+            text: '聊天室修改密码验证码:' + ctx.session.verify,
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+            console.log('Message %s sent: %s', info.messageId, info.response);
+        });
+        code=1;
+        msg='成功获取验证码';
+    }
+    ctx.api(200,{},{code:code,msg:msg});
+    await next();
+});
+
+router.post('/action=change_password',async(ctx,next)=>{
+    let code,msg;
+    if(ctx.request.body.verify_code===ctx.session.verify){
+        code=1;
+        msg='修改密码成功';
+        let user_person = await user.findOne({where:{email:ctx.request.body.email}});
+        await user_person.update({password:ctx.request.body.password});
+    }
+    else{
+        code=0;
+        msg='密码错误！';
+    }
+    ctx.api(200,{},{code:code,mag:msg});
+    await next();
+});
+
 module.exports = router;

@@ -1,6 +1,6 @@
 const socket = io('http://118.89.197.156:3001');
-const [message_box,managerBox,name,message, warn_msg,user_face,user_list,file_btn,chat_font,fontBox,write_area,def,kai,song,font_size,sendFile,setFace,sub_btn,upload_file,upload_input_file,upload_file_process,upload_face,upload_input_face,upload_face_process]=
-    ['#message_box','.managerBox','.name','#message','#alert','#user_face','.user_list','#file_btn','#chat_font','.fontBox','.write_area','#default','#kai','#song','#font_size','#sendFile','#setFace','.sub_btn','#upload_file','#upload_input_file','#upload_file_process','#upload_face','#upload_input_face','#upload_face_process'];
+const [message_box,managerBox,name,message, warn_msg,user_face,user_list,file_btn,chat_font,fontBox,write_area,def,kai,song,font_size,sendFile,setFace,sub_btn,upload_file,upload_input_file,upload_file_process,upload_face,upload_input_face,upload_face_process,change_password,logout]=
+    ['#message_box','.managerBox', '.name','#message','#alert','#user_face','.user_list','#file_btn','#chat_font','.fontBox','.write_area','#default','#kai','#song','#font_size','#sendFile','#setFace','.sub_btn','#upload_file','#upload_input_file','#upload_file_process','#upload_face','#upload_input_face','#upload_face_process','#change_password','#logout'];
 function warning_msg(msg) {
     $(warn_msg)[0].innerText=msg;
     $(warn_msg).css('top','50%');
@@ -171,6 +171,9 @@ $(function () {
     $(user_face).click(()=>{
         $(setFace).modal('show');
     });
+    $(change_password).click(()=>{
+        location.href='./change_password.html';
+    });
     $(sub_btn).click(()=>{
         send_msg(localStorage.getItem('username'),localStorage.getItem('face_url'));
     });
@@ -233,6 +236,10 @@ $(function () {
         }, (response)=>{
             warning_msg(response.status.msg);
         });
+    $(logout).click(()=>{
+        socket.close();
+        location.href='../index.html';
+    });
 });
 socket.on('add_someone',(data)=>{
     add_someone(data.username,data.face_url);
