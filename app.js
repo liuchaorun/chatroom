@@ -31,7 +31,7 @@ io.on('connection',(socket)=>{
     });
     socket.on('msg',(data)=>{
         let now = new Date();
-        data.time = now.getMonth()+'月'+now.getDay()+'日'+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds();
+        data.time = (now.getMonth()+1)+'月'+now.getDate()+'日'+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds();
         io.sockets.emit('get_msg',data);
         console.log(data);
     });
