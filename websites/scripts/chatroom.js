@@ -1,6 +1,6 @@
 const socket = io('http://118.89.197.156:3001');
-const [message_box,managerBox,name,message, warn_msg,user_face,user_list,file_btn,chat_font,fontBox,write_area,def,kai,song,font_size,sendFile,setFace,sub_btn,upload_file,upload_input_file,upload_file_process,upload_face,upload_input_face,upload_face_process,change_password,logout]=
-    ['#message_box','.managerBox', '.name','#message','#alert','#user_face','.user_list','#file_btn','#chat_font','.fontBox','.write_area','#default','#kai','#song','#font_size','#sendFile','#setFace','.sub_btn','#upload_file','#upload_input_file','#upload_file_process','#upload_face','#upload_input_face','#upload_face_process','#change_password','#logout'];
+const [message_box,managerBox,name,message, warn_msg,user_face,user_list,file_btn,chat_font,fontBox,write_area,def,kai,song,font_size,sendFile,setFace,sub_btn,upload_file,upload_input_file,upload_file_process,upload_face,upload_input_face,upload_face_process,logout]=
+    ['#message_box','.managerBox', '.name','#message','#alert','#user_face','.user_list','#file_btn','#chat_font','.fontBox','.write_area','#default','#kai','#song','#font_size','#sendFile','#setFace','.sub_btn','#upload_file','#upload_input_file','#upload_file_process','#upload_face','#upload_input_face','#upload_face_process','#logout'];
 function warning_msg(msg) {
     $(warn_msg)[0].innerText=msg;
     $(warn_msg).css('top','50%');
@@ -171,9 +171,6 @@ $(function () {
     $(user_face).click(()=>{
         $(setFace).modal('show');
     });
-    $(change_password).click(()=>{
-        location.href='./change_password.html';
-    });
     $(sub_btn).click(()=>{
         send_msg(localStorage.getItem('username'),localStorage.getItem('face_url'));
     });
@@ -219,8 +216,8 @@ $(function () {
                 $(user_face)[0].src=response.data.face_url;
                 $(name).html(response.data.username+'<i class="fontIco down"></i>\n' +
                     '                <ul class="managerBox">\n' +
-                    '                    <li id="change_password"><a href="#" ><i class="fontIco lock"></i>修改密码</a></li>\n' +
-                    '                    <li id="logout"><a href="#"><i class="fontIco logout"></i>退出登录</a></li>\n' +
+                    '                    <li><a href="http://118.89.197.156:3001/html/change_password" ><i class="fontIco lock"></i>修改密码</a></li>\n' +
+                    '                    <li><a href="#" id="logout"><i class="fontIco logout"></i>退出登录</a></li>\n' +
                     '                </ul>');
                 let data={
                     username:response.data.username,
