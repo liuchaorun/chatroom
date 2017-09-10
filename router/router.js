@@ -63,7 +63,7 @@ router.post('/action=login',async(ctx,next)=>{
                         'user',
                         md,
                         {
-                            domain: '118.89.197.156',  // 写cookie所在的域名
+                            domain: '118.89.197.156:3001',  // 写cookie所在的域名
                             path: '/',       // 写cookie所在的路径
                             maxAge: 60 * 60 * 24 * 30 * 1000, // cookie有效时长
                             httpOnly: true,  // 是否只用于http请求中获取
@@ -76,7 +76,7 @@ router.post('/action=login',async(ctx,next)=>{
                         'user',
                         md,
                         {
-                            domain: '118.89.197.156',  // 写cookie所在的域名
+                            domain: '118.89.197.156:3001',  // 写cookie所在的域名
                             path: '/',       // 写cookie所在的路径
                             httpOnly: true,  // 是否只用于http请求中获取
                             overwrite: true  // 是否允许重写
@@ -92,7 +92,6 @@ router.post('/action=login',async(ctx,next)=>{
             }
         }
         else {
-            let user_person = await user.findOne({where: {username: ctx.session.custom_username}});
             code=1;
             msg= '自动登录成功！';
         }
