@@ -22,7 +22,7 @@ let transporter = nodemailer.createTransport({
     service: '126',
     auth: {
         user: 'pobooks@126.com',
-        pass: 'messenger3'
+        pass: 'messenger126'
     }
 });
 
