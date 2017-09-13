@@ -8,6 +8,7 @@ const res_api = require('koa.res.api');
 const server = require('http').Server(app.callback());
 const io = require('socket.io')(server);
 const user={};
+const online_user={};
 app.use(bodyParser());
 app.use(res_api());
 app.use(session({
@@ -22,15 +23,15 @@ io.on('connection',(socket)=>{
     socket.on('join',(data)=>{
         name=data.username;
         if(user.name===undefined){
-            //data.usocket = socket;
             console.log(name + 'join');
             socket.emit('add_online_people',user);
             io.sockets.emit('add_someone',data);
             user.name=data;
+            online_user.name = socket;
         }
         else{
-            user.name.usocket.emit('other_login',{});
-            data.usocket = socket;
+            online_user.name.emit('other_login',{});
+            online_user.name = socket;
             user.name = data;
             console.log(name + 'rejoin');
             socket.emit('add_online_people',user);
@@ -48,7 +49,8 @@ io.on('connection',(socket)=>{
     socket.on('disconnect',()=>{
         console.log(name+' disconnect');
         io.sockets.emit('del_someone',name);
-        delete user[name];
+        delete user.name;
+        delete online_user.name;
         delete client;
     });
 });
