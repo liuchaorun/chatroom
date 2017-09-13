@@ -29,10 +29,10 @@ io.on('connection',(socket)=>{
             user.name=data;
         }
         else{
-            user[name].usocket.emit('other_login',{});
+            user.name.usocket.emit('other_login',{});
             data.usocket = socket;
-            user[data.username]=data;
-            console.log(data.username + 'rejoin');
+            user.name = data;
+            console.log(name + 'rejoin');
             socket.emit('add_online_people',user);
         }
     });
