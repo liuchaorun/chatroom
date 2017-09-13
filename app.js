@@ -22,7 +22,7 @@ io.on('connection',(socket)=>{
     socket.on('join',(data)=>{
         name=data.username;
         if(user.name===undefined){
-            data.usocket = socket;
+            //data.usocket = socket;
             console.log(name + 'join');
             socket.emit('add_online_people',user);
             io.sockets.emit('add_someone',data);
