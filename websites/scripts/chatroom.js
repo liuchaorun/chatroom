@@ -252,3 +252,9 @@ socket.on('add_online_people',(data)=>{
 socket.on('someone_change_face',(data)=>{
     ($('#'+data.username)[0].children[0].children[0]).src=data.face_url;
 });
+socket.on('other_login',(data)=>{
+   warning_msg('你已在别处登录！');
+   setTimeout(()=>{
+       location.href = '../index.html';
+   },2000);
+});

@@ -21,10 +21,20 @@ io.on('connection',(socket)=>{
     let name;
     socket.on('join',(data)=>{
         name=data.username;
-        console.log(data.username + 'join');
-        socket.emit('add_online_people',user);
-        io.sockets.emit('add_someone',data);
-        user[data.username]=data;
+        if(user.name===undefined){
+            data.usocket = socket;
+            console.log(data.username + 'join');
+            socket.emit('add_online_people',user);
+            io.sockets.emit('add_someone',data);
+            user[data.username]=data;
+        }
+        else{
+            user[name].socket.emit('other_login',{});
+            data.usocket = socket;
+            user[data.username]=data;
+            console.log(data.username + 'rejoin');
+            socket.emit('add_online_people',user);
+        }
     });
     socket.on('change_face',(data)=>{
         socket.broadcast.emit('someone_change_face',data);
