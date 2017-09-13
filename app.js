@@ -23,13 +23,13 @@ io.on('connection',(socket)=>{
         name=data.username;
         if(user.name===undefined){
             data.usocket = socket;
-            console.log(data.username + 'join');
+            console.log(name + 'join');
             socket.emit('add_online_people',user);
             io.sockets.emit('add_someone',data);
-            user[data.username]=data;
+            user.name=data;
         }
         else{
-            user[name].socket.emit('other_login',{});
+            user[name].usocket.emit('other_login',{});
             data.usocket = socket;
             user[data.username]=data;
             console.log(data.username + 'rejoin');
